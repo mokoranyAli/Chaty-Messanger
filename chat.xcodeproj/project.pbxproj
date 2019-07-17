@@ -13,6 +13,8 @@
 		C9180AE673688C1ED39AFAB6 /* Pods_chattTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C526B38FE7C0308D888A3D09 /* Pods_chattTests.framework */; };
 		DB2EF4D0766D2C5F8F39498A /* Pods_chattUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F18AEECFCF2FC6763CFC2DE /* Pods_chattUITests.framework */; };
 		DC42607822DED92A0008E1B5 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC42607722DED92A0008E1B5 /* ChatLogController.swift */; };
+		DC42607B22DFBF310008E1B5 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC42607A22DFBF310008E1B5 /* UserCell.swift */; };
+		DC42607D22DFBF830008E1B5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC42607C22DFBF830008E1B5 /* Message.swift */; };
 		DC7CB51B22DBF12A00171632 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7CB51A22DBF12A00171632 /* LoginController.swift */; };
 		DC7CB51F22DC202F00171632 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7CB51E22DC202F00171632 /* User.swift */; };
 		DC7CB52122DC20CE00171632 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7CB52022DC20CE00171632 /* NewMessageController.swift */; };
@@ -61,6 +63,8 @@
 		C526B38FE7C0308D888A3D09 /* Pods_chattTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chattTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D01C90A366573CBBC9703028 /* Pods-chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chat.debug.xcconfig"; path = "Target Support Files/Pods-chat/Pods-chat.debug.xcconfig"; sourceTree = "<group>"; };
 		DC42607722DED92A0008E1B5 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
+		DC42607A22DFBF310008E1B5 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserCell.swift; path = chatt/controller/UserCell.swift; sourceTree = SOURCE_ROOT; };
+		DC42607C22DFBF830008E1B5 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		DC7CB51A22DBF12A00171632 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		DC7CB51E22DC202F00171632 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DC7CB52022DC20CE00171632 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
@@ -139,6 +143,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DC42607922DFBF0E0008E1B5 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				DC42607A22DFBF310008E1B5 /* UserCell.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		DC7CB51C22DBF1EE00171632 /* controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				DC7CB51E22DC202F00171632 /* User.swift */,
+				DC42607C22DFBF830008E1B5 /* Message.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -192,6 +205,7 @@
 		DCF4BCF522DAD4A6008D32DE /* chatt */ = {
 			isa = PBXGroup;
 			children = (
+				DC42607922DFBF0E0008E1B5 /* view */,
 				DCE8281522DEB08E00670FF0 /* Helpers */,
 				DC7CB51D22DC200200171632 /* model */,
 				DC7CB51C22DBF1EE00171632 /* controller */,
@@ -451,7 +465,9 @@
 				DC7CB52122DC20CE00171632 /* NewMessageController.swift in Sources */,
 				DC7CB52322DC312900171632 /* LoginController+handlers.swift in Sources */,
 				DCF4BCF922DAD4A6008D32DE /* MessagesController.swift in Sources */,
+				DC42607B22DFBF310008E1B5 /* UserCell.swift in Sources */,
 				DC7CB51B22DBF12A00171632 /* LoginController.swift in Sources */,
+				DC42607D22DFBF830008E1B5 /* Message.swift in Sources */,
 				DCF4BCF722DAD4A6008D32DE /* AppDelegate.swift in Sources */,
 				DCE8281722DEB0F300670FF0 /* Extensions.swift in Sources */,
 			);
