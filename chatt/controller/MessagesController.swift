@@ -45,6 +45,8 @@ class MessagesController: UITableViewController {
         Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
+                //                self.navigationItem.title = dictionary["name"] as? String
+                
                 let user = User(dictionary: dictionary)
                 self.setupNavBarWithUser(user)
             }
@@ -56,7 +58,7 @@ class MessagesController: UITableViewController {
         let titleView = UIView()
         titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
         //        titleView.backgroundColor = UIColor.redColor()
-        
+        //
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         titleView.addSubview(containerView)
@@ -74,26 +76,37 @@ class MessagesController: UITableViewController {
         
         //ios 9 constraint anchors
         //need x,y,width,height anchors
-        profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
-        profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+//        profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+//        profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+//        profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+//        profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        //
+        //        let nameLabel = UILabel()
+        //
+        //        nameLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showChatController)))
+        //
+        //        containerView.addSubview(nameLabel)
+        //        nameLabel.text = user.name
+        //        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        //        //need x,y,width,height anchors
+        //        nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8).isActive = true
+        //        nameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
+        //        nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        //        nameLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
+        //
+        //        containerView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
+        //        containerView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
         
-        let nameLabel = UILabel()
+        let button = UIButton(type: .system)
+        button.setTitle(user.name, for: .normal)
+        button.addTarget(self, action: #selector(showChatController), for: .touchUpInside)
         
-        containerView.addSubview(nameLabel)
-        nameLabel.text = user.name
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        //need x,y,width,height anchors
-        nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8).isActive = true
-        nameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
-        nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-        nameLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
-        
-        containerView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
-        containerView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
-        
-        self.navigationItem.titleView = titleView
+        self.navigationItem.titleView = button
+    }
+    
+    @objc func showChatController() {
+        let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
+        navigationController?.pushViewController(chatLogController, animated: true)
     }
     
     @objc func handleLogout() {
@@ -110,4 +123,3 @@ class MessagesController: UITableViewController {
     }
     
 }
-
