@@ -11,9 +11,13 @@
 		C9180AE673688C1ED39AFAB6 /* Pods_chattTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C526B38FE7C0308D888A3D09 /* Pods_chattTests.framework */; };
 		DB2EF4D0766D2C5F8F39498A /* Pods_chattUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F18AEECFCF2FC6763CFC2DE /* Pods_chattUITests.framework */; };
 		DC7CB51B22DBF12A00171632 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7CB51A22DBF12A00171632 /* LoginController.swift */; };
+		DC7CB51F22DC202F00171632 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7CB51E22DC202F00171632 /* User.swift */; };
+		DC7CB52122DC20CE00171632 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7CB52022DC20CE00171632 /* NewMessageController.swift */; };
+		DC7CB52322DC312900171632 /* LoginController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7CB52222DC312900171632 /* LoginController+handlers.swift */; };
 		DCBE881C22DAD81700C878EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCBE881B22DAD81700C878EC /* GoogleService-Info.plist */; };
+		DCE8281722DEB0F300670FF0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE8281622DEB0F300670FF0 /* Extensions.swift */; };
 		DCF4BCF722DAD4A6008D32DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF4BCF622DAD4A6008D32DE /* AppDelegate.swift */; };
-		DCF4BCF922DAD4A6008D32DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF4BCF822DAD4A6008D32DE /* ViewController.swift */; };
+		DCF4BCF922DAD4A6008D32DE /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF4BCF822DAD4A6008D32DE /* MessagesController.swift */; };
 		DCF4BCFC22DAD4A6008D32DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCF4BCFA22DAD4A6008D32DE /* Main.storyboard */; };
 		DCF4BCFE22DAD4A6008D32DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCF4BCFD22DAD4A6008D32DE /* Assets.xcassets */; };
 		DCF4BD0122DAD4A6008D32DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCF4BCFF22DAD4A6008D32DE /* LaunchScreen.storyboard */; };
@@ -49,10 +53,14 @@
 		C526B38FE7C0308D888A3D09 /* Pods_chattTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chattTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8A455607C445F096AE9F54B /* Pods-chatt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatt.debug.xcconfig"; path = "Target Support Files/Pods-chatt/Pods-chatt.debug.xcconfig"; sourceTree = "<group>"; };
 		DC7CB51A22DBF12A00171632 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		DC7CB51E22DC202F00171632 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		DC7CB52022DC20CE00171632 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
+		DC7CB52222DC312900171632 /* LoginController+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+handlers.swift"; sourceTree = "<group>"; };
 		DCBE881B22DAD81700C878EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DCE8281622DEB0F300670FF0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DCF4BCF322DAD4A6008D32DE /* chatt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCF4BCF622DAD4A6008D32DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DCF4BCF822DAD4A6008D32DE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DCF4BCF822DAD4A6008D32DE /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
 		DCF4BCFB22DAD4A6008D32DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DCF4BCFD22DAD4A6008D32DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DCF4BD0022DAD4A6008D32DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -123,9 +131,27 @@
 			isa = PBXGroup;
 			children = (
 				DC7CB51A22DBF12A00171632 /* LoginController.swift */,
-				DCF4BCF822DAD4A6008D32DE /* ViewController.swift */,
+				DCF4BCF822DAD4A6008D32DE /* MessagesController.swift */,
+				DC7CB52022DC20CE00171632 /* NewMessageController.swift */,
+				DC7CB52222DC312900171632 /* LoginController+handlers.swift */,
 			);
 			path = controller;
+			sourceTree = "<group>";
+		};
+		DC7CB51D22DC200200171632 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				DC7CB51E22DC202F00171632 /* User.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		DCE8281522DEB08E00670FF0 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DCE8281622DEB0F300670FF0 /* Extensions.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		DCF4BCEA22DAD4A6008D32DE = {
@@ -153,6 +179,8 @@
 		DCF4BCF522DAD4A6008D32DE /* chatt */ = {
 			isa = PBXGroup;
 			children = (
+				DCE8281522DEB08E00670FF0 /* Helpers */,
+				DC7CB51D22DC200200171632 /* model */,
 				DC7CB51C22DBF1EE00171632 /* controller */,
 				DCF4BCF622DAD4A6008D32DE /* AppDelegate.swift */,
 				DCF4BCFA22DAD4A6008D32DE /* Main.storyboard */,
@@ -405,9 +433,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DCF4BCF922DAD4A6008D32DE /* ViewController.swift in Sources */,
+				DC7CB51F22DC202F00171632 /* User.swift in Sources */,
+				DC7CB52122DC20CE00171632 /* NewMessageController.swift in Sources */,
+				DC7CB52322DC312900171632 /* LoginController+handlers.swift in Sources */,
+				DCF4BCF922DAD4A6008D32DE /* MessagesController.swift in Sources */,
 				DC7CB51B22DBF12A00171632 /* LoginController.swift in Sources */,
 				DCF4BCF722DAD4A6008D32DE /* AppDelegate.swift in Sources */,
+				DCE8281722DEB0F300670FF0 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
