@@ -105,7 +105,7 @@ class LoginController: UIViewController {
     
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "gameofthrones_splash")
+        imageView.image = UIImage(named: "user")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         

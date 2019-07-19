@@ -6,6 +6,8 @@
 //  Copyright © 2019 ashraf. All rights reserved.
 //
 import UIKit
+import Firebase
+
 class Message: NSObject {
     
     var fromId: String?
@@ -20,5 +22,8 @@ class Message: NSObject {
         self.timestamp = dictionary["timestamp"] as? NSNumber
     }
     
+    func chatPartnerId() -> String? {
+        return fromId == Auth.auth().currentUser?.uid ? toId : fromId
+    }
+    
 }
-
