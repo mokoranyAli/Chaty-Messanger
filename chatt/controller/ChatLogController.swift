@@ -158,7 +158,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         let imageName = UUID().uuidString
         let ref = Storage.storage().reference().child("message_images").child(imageName)
         
-        if let uploadData = UIImagePNGRepresentation(image) {
+         if let uploadData = UIImagePNGRepresentation(image)  {
             ref.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 
                 if error != nil {
@@ -194,8 +194,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     }
     
     func setupKeyboardObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name:.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+     NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name:.UIKeyboardWillShow, object: nil)
+       
     }
     
     @objc func handleKeyboardDidShow() {
@@ -212,24 +212,24 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     }
     
     @objc func handleKeyboardWillShow(_ notification: Notification) {
-        let keyboardFrame = (notification.userInfo?["UIKeyboardBoundsUserInfoKey"] as AnyObject).cgRectValue
-        let keyboardDuration = (notification.userInfo?["UIKeyboardAnimationDurationUserInfoKey"] as AnyObject).doubleValue
+                let keyboardFrame = (notification.userInfo?["UIKeyboardBoundsUserInfoKey"] as AnyObject).cgRectValue
+                let keyboardDuration = (notification.userInfo?["UIKeyboardAnimationDurationUserInfoKey"] as AnyObject).doubleValue
         
-        containerViewBottomAnchor?.constant = -keyboardFrame!.height
-        UIView.animate(withDuration: keyboardDuration!, animations: {
-            self.view.layoutIfNeeded()
-            
-        })
-    }
+                containerViewBottomAnchor?.constant = -keyboardFrame!.height
+                UIView.animate(withDuration: keyboardDuration!, animations: {
+                    self.view.layoutIfNeeded()
+        
+                })
+            }
     
-    @objc func handleKeyboardWillHide(_ notification: Notification) {
-        let keyboardDuration = 3
+            @objc func handleKeyboardWillHide(_ notification: Notification) {
+                let keyboardDuration = 3
         
-        containerViewBottomAnchor?.constant = 0
-        UIView.animate(withDuration: TimeInterval(keyboardDuration), animations: {
-            self.view.layoutIfNeeded()
-        })
-    }
+                containerViewBottomAnchor?.constant = 0
+                UIView.animate(withDuration: TimeInterval(keyboardDuration), animations: {
+                    self.view.layoutIfNeeded()
+                })
+            }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
@@ -238,16 +238,21 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
         
+        cell.chatLogController = self
+        
         let message = messages[indexPath.item]
         cell.textView.text = message.text
         
         setupCell(cell, message: message)
         
         if let text = message.text {
+            //a text message
             cell.bubbleWidthAnchor?.constant = estimateFrameForText(text).width + 32
+            cell.textView.isHidden = false
         } else if message.imageUrl != nil {
             //fall in here if its an image message
             cell.bubbleWidthAnchor?.constant = 200
+            cell.textView.isHidden = true
         }
         
         return cell
@@ -311,12 +316,12 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         return CGSize(width: width, height: height)
     }
     
-    fileprivate func estimateFrameForText(_ text: String) -> CGRect {
-        let size = CGSize(width: 200, height: 1000)
-        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        
-        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16)], context: nil)
-    }
+        fileprivate func estimateFrameForText(_ text: String) -> CGRect {
+            let size = CGSize(width: 200, height: 1000)
+            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+    
+            return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16)], context: nil)
+        }
     
     var containerViewBottomAnchor: NSLayoutConstraint?
     
@@ -333,7 +338,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     fileprivate func sendMessageWithProperties(_ properties: [String: AnyObject]) {
         let ref = Database.database().reference().child("messages")
         let childRef:DatabaseReference?
-        childRef = ref.childByAutoId()
+            childRef = ref.childByAutoId()
         let toId = user!.id!
         let fromId = Auth.auth().currentUser!.uid
         let timestamp = Int(Date().timeIntervalSince1970)
@@ -366,11 +371,77 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         handleSend()
         return true
     }
+    
+    var startingFrame: CGRect?
+    var blackBackgroundView: UIView?
+    var startingImageView: UIImageView?
+    
+    //my custom zooming logic
+    func performZoomInForStartingImageView(_ startingImageView: UIImageView) {
+        
+        self.startingImageView = startingImageView
+        self.startingImageView?.isHidden = true
+        
+        startingFrame = startingImageView.superview?.convert(startingImageView.frame, to: nil)
+        
+        let zoomingImageView = UIImageView(frame: startingFrame!)
+        zoomingImageView.backgroundColor = UIColor.red
+        zoomingImageView.image = startingImageView.image
+        zoomingImageView.isUserInteractionEnabled = true
+        zoomingImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleZoomOut)))
+        
+        if let keyWindow = UIApplication.shared.keyWindow {
+            blackBackgroundView = UIView(frame: keyWindow.frame)
+            blackBackgroundView?.backgroundColor = UIColor.black
+            blackBackgroundView?.alpha = 0
+            keyWindow.addSubview(blackBackgroundView!)
+            
+            keyWindow.addSubview(zoomingImageView)
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                
+                self.blackBackgroundView?.alpha = 1
+                self.inputContainerView.alpha = 0
+                
+                // math?
+                // h2 / w1 = h1 / w1
+                // h2 = h1 / w1 * w1
+                let height = self.startingFrame!.height / self.startingFrame!.width * keyWindow.frame.width
+                
+                zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
+                
+                zoomingImageView.center = keyWindow.center
+                
+            }, completion: { (completed) in
+                //                    do nothing
+            })
+            
+        }
+    }
+    
+    @objc func handleZoomOut(_ tapGesture: UITapGestureRecognizer) {
+        if let zoomOutImageView = tapGesture.view {
+            //need to animate back out to controller
+            zoomOutImageView.layer.cornerRadius = 16
+            zoomOutImageView.clipsToBounds = true
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                
+                zoomOutImageView.frame = self.startingFrame!
+                self.blackBackgroundView?.alpha = 0
+                self.inputContainerView.alpha = 1
+                
+            }, completion: { (completed) in
+                zoomOutImageView.removeFromSuperview()
+                self.startingImageView?.isHidden = false
+            })
+        }
+    }
 }
 
+ //Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [String: Any]) -> [String: Any] {
     return Dictionary(uniqueKeysWithValues: input.map {result in (result.key, result.value)})
 }
-
 
 
