@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import UIKit
 import Firebase
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
@@ -65,8 +64,6 @@ class MessagesController: UITableViewController {
         ref.observe(.childAdded, with: { (snapshot) in
             
             let userId = snapshot.key
-            
-            print(uid, userId)
             Database.database().reference().child("user-messages").child(uid).child(userId).observe(.childAdded, with: { (snapshot) in
                 
                 let messageId = snapshot.key
@@ -258,5 +255,4 @@ class MessagesController: UITableViewController {
     }
     
 }
-
 
