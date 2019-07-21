@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UIKit
 import Firebase
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
@@ -63,42 +64,54 @@ class MessagesController: UITableViewController {
         let ref = Database.database().reference().child("user-messages").child(uid)
         ref.observe(.childAdded, with: { (snapshot) in
             
-            let messageId = snapshot.key
-            let messagesReference = Database.database().reference().child("messages").child(messageId)
+            let userId = snapshot.key
             
-            messagesReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            print(uid, userId)
+            Database.database().reference().child("user-messages").child(uid).child(userId).observe(.childAdded, with: { (snapshot) in
                 
-                if let dictionary = snapshot.value as? [String: AnyObject] {
-                    let message = Message(dictionary: dictionary)
-                    
-                    if let chatPartnerId = message.chatPartnerId() {
-                        self.messagesDictionary[chatPartnerId] = message
-                        
-                        self.messages = Array(self.messagesDictionary.values)
-                        self.messages.sort(by: { (message1, message2) -> Bool in
-                            
-                            return message1.timestamp?.int32Value > message2.timestamp?.int32Value
-                        })
-                    }
-                    
-                   // self.timer?.invalidate()
-                    print("we just canceled our timer")
-                    
-                    self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
-                    print("schedule a table reload in 0.1 sec")
-                }
+                let messageId = snapshot.key
+                self.fetchMessageWithMessageId(messageId)
                 
             }, withCancel: nil)
             
         }, withCancel: nil)
     }
     
+    fileprivate func fetchMessageWithMessageId(_ messageId: String) {
+        let messagesReference = Database.database().reference().child("messages").child(messageId)
+        
+        messagesReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let message = Message(dictionary: dictionary)
+                
+                if let chatPartnerId = message.chatPartnerId() {
+                    self.messagesDictionary[chatPartnerId] = message
+                }
+                
+                self.attemptReloadOfTable()
+            }
+            
+        }, withCancel: nil)
+    }
+    
+    fileprivate func attemptReloadOfTable() {
+        self.timer?.invalidate()
+        
+        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
+    }
+    
     var timer: Timer?
     
     @objc func handleReloadTable() {
+        self.messages = Array(self.messagesDictionary.values)
+        self.messages.sort(by: { (message1, message2) -> Bool in
+            
+            return message1.timestamp?.int32Value > message2.timestamp?.int32Value
+        })
+        
         //this will crash because of background thread, so lets call this on dispatch_async main thread
         DispatchQueue.main.async(execute: {
-            print("we reloaded the table")
             self.tableView.reloadData()
         })
     }
@@ -245,4 +258,5 @@ class MessagesController: UITableViewController {
     }
     
 }
+
 
