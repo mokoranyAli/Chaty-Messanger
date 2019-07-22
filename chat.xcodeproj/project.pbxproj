@@ -16,6 +16,7 @@
 		DC42607B22DFBF310008E1B5 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC42607A22DFBF310008E1B5 /* UserCell.swift */; };
 		DC42607D22DFBF830008E1B5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC42607C22DFBF830008E1B5 /* Message.swift */; };
 		DC468F6022E15D9B0010219B /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC468F5F22E15D9B0010219B /* ChatMessageCell.swift */; };
+		DC5905B222E571F3004B0D43 /* FileChatInputContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5905B122E571F3004B0D43 /* FileChatInputContainerView.swift */; };
 		DC7CB51B22DBF12A00171632 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7CB51A22DBF12A00171632 /* LoginController.swift */; };
 		DC7CB51F22DC202F00171632 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7CB51E22DC202F00171632 /* User.swift */; };
 		DC7CB52122DC20CE00171632 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7CB52022DC20CE00171632 /* NewMessageController.swift */; };
@@ -67,6 +68,7 @@
 		DC42607A22DFBF310008E1B5 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserCell.swift; path = chatt/controller/UserCell.swift; sourceTree = SOURCE_ROOT; };
 		DC42607C22DFBF830008E1B5 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		DC468F5F22E15D9B0010219B /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
+		DC5905B122E571F3004B0D43 /* FileChatInputContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileChatInputContainerView.swift; sourceTree = "<group>"; };
 		DC7CB51A22DBF12A00171632 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		DC7CB51E22DC202F00171632 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DC7CB52022DC20CE00171632 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			children = (
 				DC42607A22DFBF310008E1B5 /* UserCell.swift */,
 				DC468F5F22E15D9B0010219B /* ChatMessageCell.swift */,
+				DC5905B122E571F3004B0D43 /* FileChatInputContainerView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				DC7CB52322DC312900171632 /* LoginController+handlers.swift in Sources */,
 				DCF4BCF922DAD4A6008D32DE /* MessagesController.swift in Sources */,
 				DC42607B22DFBF310008E1B5 /* UserCell.swift in Sources */,
+				DC5905B222E571F3004B0D43 /* FileChatInputContainerView.swift in Sources */,
 				DC7CB51B22DBF12A00171632 /* LoginController.swift in Sources */,
 				DC468F6022E15D9B0010219B /* ChatMessageCell.swift in Sources */,
 				DC42607D22DFBF830008E1B5 /* Message.swift in Sources */,

@@ -40,6 +40,8 @@ class MessagesController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         
         let image = UIImage(named: "new_message_icon")
@@ -271,15 +273,28 @@ class MessagesController: UITableViewController {
     
     @objc func handleLogout() {
         
-        do {
-            try Auth.auth().signOut()
-        } catch let logoutError {
-            print(logoutError)
-        }
+        let alert = UIAlertController(title: "Do you want logout", message: "you will have to sign in again when open", preferredStyle: .actionSheet)
+        alert.view.tintColor = UIColor.black
         
-        let loginController = LoginController()
-        loginController.messagesController = self
-        present(loginController, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
+            action in
+            
+            do {
+                try Auth.auth().signOut()
+            } catch let logoutError {
+                print(logoutError)
+            }
+            
+            let loginController = LoginController()
+            loginController.messagesController = self
+            self.present(loginController, animated: true, completion: nil)
+            
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true)
+        
+       
     }
     
 }
