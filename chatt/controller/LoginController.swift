@@ -37,11 +37,14 @@ class LoginController: UIViewController {
     }()
     
     @objc func handleLoginRegister() {
+        
         if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
+            
             handleLogin()
         } else {
-            handleRegister()
+           handleRegister()
         }
+        
     }
     
     func handleLogin() {
@@ -105,7 +108,7 @@ class LoginController: UIViewController {
     
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "user")
+        imageView.image = UIImage(named: "add")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         
@@ -125,6 +128,14 @@ class LoginController: UIViewController {
     }()
     
     @objc func handleLoginRegisterChange() {
+        if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
+            profileImageView.image = UIImage(named: "logo")
+            profileImageView.isUserInteractionEnabled = false
+            handleLogin()
+        } else {
+            profileImageView.image = UIImage(named: "add")
+            profileImageView.isUserInteractionEnabled = true
+        }
         let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
         loginRegisterButton.setTitle(title, for: UIControlState.normal)
         
@@ -149,7 +160,8 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(r: 61, g: 91, b: 151)
+       view.backgroundColor = UIColor(r: 61, g: 91, b: 151)
+       
         
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)

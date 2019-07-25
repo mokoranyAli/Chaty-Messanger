@@ -50,7 +50,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
                         }
                         
                         guard let url = url else { return }
-                        let values = ["name": name, "email": email, "profileImageUrl": url.absoluteString]
+                        let values = ["name": name, "email": email, "profileImageUrl": url.absoluteString, "status":"hey there, i have to start chat"]
                         
                         self.registerUserIntoDatabaseWithUID(uid, values: values as [String : AnyObject])
                     })

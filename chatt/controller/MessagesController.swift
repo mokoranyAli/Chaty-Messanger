@@ -36,12 +36,24 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 class MessagesController: UITableViewController {
     
     let cellId = "cellId"
+    var user:User? = nil
+    var profileImageView:UIImageView = UIImageView()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        if let profileImageUrl = user?.profileImageUrl {
+            self.profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
+    }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.tintColor = .white
         
-       
         
+        navigationController?.navigationBar.barTintColor = UIColor(r: 61, g: 91, b: 151)
+        
+        print("viewDidLoadviewDidLoad")
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         
         let image = UIImage(named: "new_message_icon")
@@ -206,8 +218,9 @@ class MessagesController: UITableViewController {
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 //                self.navigationItem.title = dictionary["name"] as? String
                 
-                let user = User(dictionary: dictionary)
-                self.setupNavBarWithUser(user)
+                self.user = User(dictionary: dictionary)
+                self.setupNavBarWithUser(self.user!)
+               
             }
             
         }, withCancel: nil)
@@ -228,7 +241,7 @@ class MessagesController: UITableViewController {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         titleView.addSubview(containerView)
         
-        let profileImageView = UIImageView()
+         profileImageView = UIImageView()
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.layer.cornerRadius = 20
@@ -236,6 +249,8 @@ class MessagesController: UITableViewController {
         if let profileImageUrl = user.profileImageUrl {
             profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
         }
+        
+       
         
         containerView.addSubview(profileImageView)
         
@@ -245,6 +260,7 @@ class MessagesController: UITableViewController {
         profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        profileImageView.isUserInteractionEnabled = true
         
         let nameLabel = UILabel()
         
@@ -256,13 +272,31 @@ class MessagesController: UITableViewController {
         nameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
         nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
         nameLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
+        nameLabel.isUserInteractionEnabled = true
         
         containerView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
         containerView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
         
         self.navigationItem.titleView = titleView
+        profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showProfile)))
+        profileImageView.isUserInteractionEnabled = true
+        titleView.isUserInteractionEnabled = true
+        containerView.isUserInteractionEnabled = true
+        titleView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        titleView.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
         
-        //        titleView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showChatController)))
+        
+        titleView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showProfile)))
+        
+        
+    }
+    @objc func showProfile(){
+        print("ssssssssssasdasdasiodjasdokasldkaslkdjaslkd")
+        let navController = profileVC()
+        navController.user = self.user
+        //present(navController, animated: true, completion: nil)
+        navigationController?.pushViewController(navController, animated: true)
+        
     }
     
     func showChatControllerForUser(_ user: User) {
@@ -274,7 +308,7 @@ class MessagesController: UITableViewController {
     @objc func handleLogout() {
         
         let alert = UIAlertController(title: "Do you want logout", message: "you will have to sign in again when open", preferredStyle: .actionSheet)
-        alert.view.tintColor = UIColor.black
+        alert.view.tintColor = UIColor.darkGray
         
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
             action in
@@ -294,7 +328,7 @@ class MessagesController: UITableViewController {
         
         self.present(alert, animated: true)
         
-       
+        
     }
     
 }

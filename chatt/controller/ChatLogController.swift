@@ -67,15 +67,21 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     
     override func viewDidLoad() {
        // self.navigationController?.navigationBar.barTintColor = UIColor.black
-        
-        //self.navigationController?.navigationBar.color = UIColor.white
-
-
-        
-
-       
 
         super.viewDidLoad()
+        
+        let button =  UIButton(type: .custom)
+        button.frame = CGRect(x: 0, y: 0, width: 250, height: 40)
+        button.backgroundColor = UIColor.lightGray
+        button.layer.cornerRadius = 4
+        button.clipsToBounds = true
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.black.cgColor
+        button.setTitle(user?.name, for: .normal)
+        button.addTarget(self, action: #selector(clickOnTitle), for: .touchUpInside)
+        navigationItem.titleView = button
+
+        
         if self.messages.count>6
         {
         let indexPath = IndexPath(item: self.messages.count - 1, section: 0)
@@ -93,7 +99,13 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
         setupKeyboardObservers()
     }
-    
+    @objc func clickOnTitle() {
+        let navController = profilePartenerVC()
+        navController.user = self.user
+        //present(navController, animated: true, completion: nil)
+        navigationController?.pushViewController(navController, animated: true)
+        
+    }
     lazy var inputContainerView: ChatInputContainerView = {
         let chatInputContainerView = ChatInputContainerView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
         chatInputContainerView.chatLogController = self
@@ -164,6 +176,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
         uploadTask.observe(.success) { (snapshot) in
             self.navigationItem.title = self.user?.name
+            
+            
             
         }
     }
@@ -244,10 +258,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     
     func setupKeyboardObservers() {
              NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name:.UIKeyboardWillShow, object: nil)
-
-        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
-        //
-        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     @objc func handleKeyboardDidShow() {
@@ -321,7 +331,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
         if message.fromId == Auth.auth().currentUser?.uid {
             //outgoing blue
-            cell.bubbleView.backgroundColor = ChatMessageCell.purbleColor
+            cell.bubbleView.backgroundColor = UIColor(r: 80, g: 101, b: 161)
             cell.textView.textColor = UIColor.white
             cell.profileImageView.isHidden = true
             
