@@ -33,7 +33,6 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             //successfully authenticated user
             let imageName = NSUUID().uuidString
             let storageRef = Storage.storage().reference().child("profile_images").child("\(imageName).png")
-            
             if let uploadData = UIImagePNGRepresentation(self.profileImageView.image!) {
                 
                 storageRef.putData(uploadData, metadata: nil, completion: { (_, err) in
